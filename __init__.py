@@ -57,7 +57,7 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
                     v.select_set(False)
 
             elif self.axis == "+X":
-                if v.co.x > self.offset:
+                if v.co.x > -self.offset:
                     v.select_set(True)
                 else:
                     v.select_set(False)
