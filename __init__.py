@@ -10,9 +10,10 @@ bl_info = {
         "wiki_url": "",
         "tracker_url": "",
         "category": "Mesh"
-}
+        }
 
 import bpy
+from bpy.props import FloatProperty, EnumProperty
 
 # class must be named Hoge_OT_Piyo.
 class SelectVertex_OT_SelectMesh(bpy.types.Operator):
@@ -21,6 +22,26 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     bl_label = "<- X"
     bl_description = "Select <- X"
     bl_options = {'REGISTER', 'UNDO'}
+
+    axis: EnumProperty(
+            name="Axis",
+            description="Forcused Axis",
+            default="-X",
+            items=[
+                ("-X", "-X", "Select according to X axis."),
+                ("+X", "+X", "Select according to X axis."),
+                ("-Y", "-Y", "Select according to Y axis."),
+                ("+Y", "+Y", "Select according to Y axis."),
+                ("-Z", "-Z", "Select according to Z axis."),
+                ("+Z", "+Z", "Select according to Z axis."),
+            ]
+    )
+
+    offset: FloatProperty(
+        name="Offset",
+        description="Offset",
+        default=0.0,
+    )
 
     def execute(self, context):
         return {'FINISHED'}
