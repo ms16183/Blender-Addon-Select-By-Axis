@@ -12,7 +12,7 @@ bl_info = {
         "category": "Mesh"
         }
 
-import bpy
+import bpy, bmesh
 from bpy.props import FloatProperty, EnumProperty
 
 # class must be named Hoge_OT_Piyo.
@@ -44,6 +44,14 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     )
 
     def execute(self, context):
+        # Get all vertex and convert vector type to tuple type.
+        obj = context.active_object
+        bm = bmesh.from_edit_mesh(obj.data)
+        vector_verts = [bmvert.co for bmvert in bm.verts]
+        verts = [vvert.to_tuple() for vvert in vector_verts]
+        for v in verts:
+            print(v)
+
         return {'FINISHED'}
 
 
