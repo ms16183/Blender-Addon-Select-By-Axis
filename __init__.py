@@ -44,13 +44,50 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     )
 
     def execute(self, context):
-        # Get all vertex and convert vector type to tuple type.
-        obj = context.active_object
-        bm = bmesh.from_edit_mesh(obj.data)
-        vector_verts = [bmvert.co for bmvert in bm.verts]
-        verts = [vvert.to_tuple() for vvert in vector_verts]
-        for v in verts:
-            print(v)
+        # Get all vertex.
+        me = context.object.data      # return type: bpy.types.Mesh
+        bm = bmesh.from_edit_mesh(me) # return type: bmesh.types.Bmesh
+        for v in bm.verts:
+
+            if self.axis == "-X":
+                if v.co.x < self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+            elif self.axis == "+X":
+                if v.co.x > self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+            elif self.axis == "-Y":
+                if v.co.y < self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+            elif self.axis == "+Y":
+                if v.co.y > -self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+            elif self.axis == "-Z":
+                if v.co.z < self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+            elif self.axis == "+Z":
+                if v.co.z > -self.offset:
+                    v.select_set(True)
+                else:
+                    v.select_set(False)
+
+
+        bmesh.update_edit_mesh(me)
+        me.update()
 
         return {'FINISHED'}
 
