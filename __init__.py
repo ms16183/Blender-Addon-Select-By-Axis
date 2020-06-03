@@ -40,7 +40,8 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     offset: FloatProperty(
         name="Offset",
         description="Offset",
-        default=0.0,
+        default=0.0000,
+        step=0.0001
     )
 
     def execute(self, context):
