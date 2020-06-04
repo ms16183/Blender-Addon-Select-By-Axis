@@ -12,6 +12,13 @@ bl_info = {
         "category": "Mesh"
         }
 
+if "bpy" in locals():
+    import imp
+    imp.reload(module)
+else:
+    from . import module
+
+
 import bpy, bmesh
 from bpy.props import FloatProperty, EnumProperty
 
@@ -45,51 +52,8 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     )
 
     def execute(self, context):
-        # Get all vertex.
-        me = context.object.data      # return type: bpy.types.Mesh
-        bm = bmesh.from_edit_mesh(me) # return type: bmesh.types.Bmesh
-        for v in bm.verts:
 
-            if self.axis == "-X":
-                if v.co.x < self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-            elif self.axis == "+X":
-                if v.co.x > -self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-            elif self.axis == "-Y":
-                if v.co.y < self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-            elif self.axis == "+Y":
-                if v.co.y > -self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-            elif self.axis == "-Z":
-                if v.co.z < self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-            elif self.axis == "+Z":
-                if v.co.z > -self.offset:
-                    v.select_set(True)
-                else:
-                    v.select_set(False)
-
-
-        bmesh.update_edit_mesh(me)
-        me.update()
-
+        module.select_axis(context, self.axis, self.offset)
         return {'FINISHED'}
 
 
