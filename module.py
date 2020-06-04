@@ -7,37 +7,37 @@ def select_axis(context, axis, offset):
     for v in bm.verts:
 
         if axis == "-X":
-            if v.co.x < offset:
+            if v.co.x < -offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
 
         elif axis == "+X":
-            if v.co.x > -offset:
+            if v.co.x > offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
 
         elif axis == "-Y":
-            if v.co.y < offset:
+            if v.co.y < -offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
 
         elif axis == "+Y":
-            if v.co.y > -offset:
+            if v.co.y > offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
 
         elif axis == "-Z":
-            if v.co.z < offset:
+            if v.co.z < -offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
 
         elif axis == "+Z":
-            if v.co.z > -offset:
+            if v.co.z > offset:
                 v.select_set(True)
             else:
                 v.select_set(False)
