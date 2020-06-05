@@ -30,6 +30,16 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
     bl_description = "Select <- X"
     bl_options = {'REGISTER', 'UNDO'}
 
+    orientation: EnumProperty(
+            name="Orientation",
+            description="Orientation",
+            default="Global",
+            items=[
+                ("Global", "Global", "Global orientation."),
+                ("Local", "Local", "Local orientation."),
+            ]
+    )
+
     axis: EnumProperty(
             name="Axis",
             description="Forcused Axis",
@@ -53,7 +63,7 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
 
     def execute(self, context):
 
-        module.select_axis(context, self.axis, self.offset)
+        module.select_axis(context, self.orientation, self.axis, self.offset)
         return {'FINISHED'}
 
 
