@@ -67,14 +67,31 @@ class SelectVertices_OT_SelectMesh(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class SelectVerticesByAxis_MT_ParentMenu(bpy.types.Menu):
+
+    bl_idname = "mesh.parent_menu"
+    bl_label = "Select according to the axis"
+    bl_discription = "Select according to the axis"
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-X").axis = "-X"
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+X").axis = "+X"
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-Y").axis = "-Y"
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+Y").axis = "+Y"
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-Z").axis = "-Z"
+        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+Z").axis = "+Z"
+
+
 
 def menu_fn(self, context):
     self.layout.separator()
-    self.layout.operator(SelectVertices_OT_SelectMesh.bl_idname)
+    self.layout.menu(SelectVerticesByAxis_MT_ParentMenu.bl_idname)
 
 
 classes = [
     SelectVertices_OT_SelectMesh,
+    SelectVerticesByAxis_MT_ParentMenu,
 ]
 
 def register():
