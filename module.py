@@ -1,7 +1,7 @@
 import bpy, bmesh
 import math, mathutils
 
-def select_axis(context, orientations="Global", axis="-X", offset=0.0):
+def select_axis(context, orientation="Global", axis="-X", offset=0.0):
     
     # get all vertices.
     me = context.object.data      # return type: bpy.types.Mesh
@@ -12,12 +12,12 @@ def select_axis(context, orientations="Global", axis="-X", offset=0.0):
 
     for v in bm.verts:
 
-        # update coordinates according to the orientations.
+        # update coordinates according to the orientation.
         x, y, z = v.co
-        if orientations == "Global":
+        if orientation == "Global":
             mat = context.object.matrix_world
             x, y, z = mat @ v.co
-        elif orientations == "Local":
+        elif orientation == "Local":
             x, y, z = v.co
 
         # select vertices.
