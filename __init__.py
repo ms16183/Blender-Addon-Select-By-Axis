@@ -1,5 +1,5 @@
 bl_info = {
-        "name": "Axis Select",
+        "name": "Select according to the axiu",
         "author": "ms16183",
         "version": (1, 0),
         "blender": (2, 80, 0),
@@ -23,11 +23,11 @@ import bpy, bmesh
 from bpy.props import FloatProperty, EnumProperty
 
 # class must be named Hoge_OT_Piyo.
-class SelectVertex_OT_SelectMesh(bpy.types.Operator):
+class SelectVertices_OT_SelectMesh(bpy.types.Operator):
 
-    bl_idname = "mesh.select_vertex"
-    bl_label = "<- X"
-    bl_description = "Select <- X"
+    bl_idname = "mesh.select_according_to_the_axis"
+    bl_label = "Select according to the axis"
+    bl_description = "Select according to the axis"
     bl_options = {'REGISTER', 'UNDO'}
 
     orientation: EnumProperty(
@@ -42,15 +42,15 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
 
     axis: EnumProperty(
             name="Axis",
-            description="Forcused Axis",
+            description="Target axis",
             default="-X",
             items=[
-                ("-X", "-X", "Select according to X axis."),
-                ("+X", "+X", "Select according to X axis."),
-                ("-Y", "-Y", "Select according to Y axis."),
-                ("+Y", "+Y", "Select according to Y axis."),
-                ("-Z", "-Z", "Select according to Z axis."),
-                ("+Z", "+Z", "Select according to Z axis."),
+                ("-X", "-X", "Select according to the X axis."),
+                ("+X", "+X", "Select according to the X axis."),
+                ("-Y", "-Y", "Select according to the Y axis."),
+                ("+Y", "+Y", "Select according to the Y axis."),
+                ("-Z", "-Z", "Select according to the Z axis."),
+                ("+Z", "+Z", "Select according to the Z axis."),
             ]
     )
 
@@ -70,25 +70,25 @@ class SelectVertex_OT_SelectMesh(bpy.types.Operator):
 
 def menu_fn(self, context):
     self.layout.separator()
-    self.layout.operator(SelectVertex_OT_SelectMesh.bl_idname)
+    self.layout.operator(SelectVertices_OT_SelectMesh.bl_idname)
 
 
 classes = [
-    SelectVertex_OT_SelectMesh,
+    SelectVertices_OT_SelectMesh,
 ]
 
 def register():
     for c in classes:
         bpy.utils.register_class(c)
     bpy.types.VIEW3D_MT_select_edit_mesh.append(menu_fn)
-    print("Valid '%s'." % bl_info["name"])
+    print(bl_info["name"] + " is valid.")
 
 
 def unregister():
     bpy.types.VIEW3D_MT_select_edit_mesh.remove(menu_fn)
     for c in classes:
         bpy.utils.unregister_class(c)
-    print("Invalid '%s'." % bl_info["name"])
+    print(bl_info["name"] + "is invalid.")
 
 
 if __name__ == "__main__":
