@@ -75,12 +75,10 @@ class SelectVerticesByAxis_MT_ParentMenu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-X").axis = "-X"
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+X").axis = "+X"
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-Y").axis = "-Y"
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+Y").axis = "+Y"
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="-Z").axis = "-Z"
-        layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text="+Z").axis = "+Z"
+        for ax in ["-X", "+X", "-Y", "+Y", "-Z", "+Z"]:
+            op = layout.operator(SelectVertices_OT_SelectMesh.bl_idname, text=ax)
+            op.axis = ax
+            op.offset  = 0.0
 
 
 
