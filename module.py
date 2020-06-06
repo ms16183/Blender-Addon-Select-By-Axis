@@ -7,8 +7,6 @@ def select_axis(context, orientation="Global", axis="-X", offset=0.0):
     me = context.object.data      # return type: bpy.types.Mesh
     bm = bmesh.from_edit_mesh(me) # return type: bmesh.types.Bmesh
 
-    # display selection mark when select mode is changed.
-    bm.select_flush_mode()
 
     for v in bm.verts:
 
@@ -28,8 +26,11 @@ def select_axis(context, orientation="Global", axis="-X", offset=0.0):
         else:
             v.select_set(False)
 
+    # display selection mark when select mode is changed.
+    bm.select_flush(True)
+
     # select edges and faces made up of the selected vertices.
-    bpy.ops.mesh.select_more()
+    #bpy.ops.mesh.select_more()
 
     # update mesh from bmesh.
     bmesh.update_edit_mesh(me)
